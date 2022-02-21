@@ -1,17 +1,20 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql');
 const cTable = require('console.table');
-
-
 const db = mysql.createConnection(
   {
-    host: 'locakhost',
+    host: 'localhost',
     user: 'root',
     password: 'password',
     database: 'bussiness_db'
   },
-  console.log(`Connected to the inventory_db database.`)
+  console.log(`Connected to the business_db database.`)
 );
+
+db.connect(function(err) {
+  if (err) throw err;
+  promptUser();
+});
 
 // start menu
 function promptUser() {
