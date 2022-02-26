@@ -1,5 +1,5 @@
 const inquirer = require('inquirer');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const cTable = require('console.table');
 
 const db = mysql.createConnection(
@@ -7,15 +7,16 @@ const db = mysql.createConnection(
     host: 'localhost',
     user: 'root',
     password: 'password',
-    database: 'bussiness_db'
+    database: 'business_db'
   },
   console.log(`Connected to the business_db database.`)
 );
 
 db.connect(function(err) {
   if (err) throw err;
-  promptUser();
+  
 });
+promptUser();
 
 // start menu
 function promptUser() {
@@ -24,8 +25,7 @@ function promptUser() {
       type: 'list',
       message: 'Please choose an option:',
       name: 'option',
-      choice: [
-
+      choices: [
         'View all departments',
         'View all roles',
         'View all employees',
@@ -34,42 +34,33 @@ function promptUser() {
         'Add an employee',        
         'Update an employee',
         'Exit'
-
       ]     
     }
   ])
   // Return user's option
   .then(function(answer) {
-    switch (answer.action) {
-
+    switch (answer.option) {
       case 'View all departments':
         allDepartments();
         break;
-
-      case 'View all roles':
+     case 'View all roles':
         allRoles();
         break;
-
       case 'View all employees':
         allEmployees();
         break;
-
       case 'Add a department':
         addDepartment();
         break;
-
       case 'Add a role':
         addRole();
         break;
-
       case 'Add an employee':
         addEmployee();
         break;
-
       case 'Update an employee role':
         updateRole();
         break;
-
       case 'Exit':
         db.end();
         break;
@@ -79,7 +70,8 @@ function promptUser() {
 
 // Create all departments table
 function allDepartments() {
-  const sql = `SELECT * FROM Department`
+  const sql = `SELECT * FROM department`
+  console.log(sql);
   db.query(sql, (err, res) => {
     if(err) {
       throw err
@@ -91,7 +83,7 @@ function allDepartments() {
 
 // Create all roles table
 function allRoles() {
-  const sql = `SELECT * FROM Role`
+  const sql = `SELECT * FROM role`
   db.query(sql, (err, res) => {
     if(err) {
       throw err
@@ -103,7 +95,7 @@ function allRoles() {
 
 // Create all employees table
 function allEmployees() {
-  const sql = `SELECT * FROM Employee`
+  const sql = `SELECT * FROM employee`
   db.query(sql, (err, res) => {
     if(err) {
       throw err
@@ -121,14 +113,10 @@ function addDepartment(){
         type: 'input',
         message: 'Add the department name.'
       },
-      {
-        name: 'id',
-        type: 'input',
-        message: 'Add the department ID.'
-      }     
+
   ]).then(answers => {
-          const sql = `INSERT INTO departments (id, name) VALUES (?,?)`; //query
-          const params = [answers.id, answers.name]
+          const sql = `INSERT INTO department (name) VALUES (?)`; //query
+          const params = [answers.name]
           db.query(sql, params, (err, res) => {
               if (err) throw err 
               console.log("--------");
@@ -214,6 +202,7 @@ function updateRole(){
   const sql = `SELECT * FROM employee`;
   db.query(sql, (err, res) => {
       if (err) throw err
+      console.log(res);
       const employee = res.map(({ id, first_name, last_name }) => ({
        value: id,
        name: `${first_name} ${last_name}`,

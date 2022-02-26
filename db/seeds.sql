@@ -20,8 +20,8 @@ VALUES
 
 INSERT INTO employee(first_name, last_name, role_id, manager_id)
 VALUES
-  ('Apple', 'Tasty', 3, 2),
   ('Orange', 'Sour', 1, NULL),
+  ('Apple', 'Tasty', 3, 1),
   ('Yorkshire', 'Terrier', 5, NULL),
   ('Husky', 'Bulky', 6, 3),
   ('Corgi', 'Chubby', 6, 3),
