@@ -115,13 +115,11 @@ function addDepartment(){
       },
 
   ]).then(answers => {
-          const sql = `INSERT INTO department (name) VALUES (?)`; //query
+          const sql = `INSERT INTO department (name) VALUES (?)`;
           const params = [answers.name]
           db.query(sql, params, (err, res) => {
               if (err) throw err 
-              console.log("--------");
-              console.log("Success!");
-              console.log("--------");
+              console.log("The department" + " '" + answers.name + "' " + "has been added!");
               promptUser();
           }
       );
@@ -198,7 +196,6 @@ function addEmployee() {
 
 // Update a role
 function updateRole(){
-
   const sql = `SELECT * FROM employee`;
   db.query(sql, (err, res) => {
       if (err) throw err
@@ -215,7 +212,7 @@ function updateRole(){
                choices: employee
            },
        ]).then(answer => { 
-           const sql = `SELECT * FROM roles`;
+           const sql = `SELECT * FROM role`;
            db.query(sql, (err, res) => {
                if (err) throw err
                    const role = res.map(({ id, title, salary }) => ({
@@ -240,8 +237,8 @@ function updateRole(){
                          console.log("Employe role has been updated.");
                          promptUser();
                        });
-               });
-           });
-       });
+               })
+           })
+       })
    }
 )};
