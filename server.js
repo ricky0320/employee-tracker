@@ -95,7 +95,15 @@ function allRoles() {
 
 // Create all employees table
 function allEmployees() {
-  const sql = `SELECT * FROM employee`
+  const sql = `SELECT employee.id, 
+  CONCAT(employee.first_name, ' ', employee.last_name) AS name,
+   role.title, department.name AS department, 
+   CONCAT(manager.first_name, ' ', 
+   manager.last_name) AS manager FROM employee LEFT JOIN 
+   role ON employee.role_id = role.id LEFT JOIN department
+   ON role.department_id = department.id LEFT JOIN 
+   employee manager ON manager.id = employee.manager_id`
+
   db.query(sql, (err, res) => {
     if(err) {
       throw err
