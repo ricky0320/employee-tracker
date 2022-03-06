@@ -31,7 +31,11 @@ Manage Your Team is an application that allows user to easily view and update in
 ## Usage
 Here is the walkthrough link:<br/>
 https://drive.google.com/file/d/1AZE2kNRD81-C9Jd26ehgbg2aoaPu4txV/view <br/>
-![screenshot](./assets/images/employee-tracker.gif)
+![screenshot](./assets/images/employee-tracker.gif)<br/>
+<br/>
+Another link to adjusted query. Update an employee works now with a better view of a left join query.<br/>
+https://drive.google.com/file/d/14CRVVrUKu8VNb_XAigmZf0V8RtMf6Eii/view <br/>
+![screenshot](./assets/images/update.gif) 
 
 
 ## Credits
